@@ -10,14 +10,34 @@ import UIKit
 
 class ViewController: UIViewController {
 
+    @IBOutlet var blueView: UIView!
+    @IBOutlet var heightCounstraint: NSLayoutConstraint!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        
+        blueView?.translatesAutoresizingMaskIntoConstraints = false // Autosizing not working
+        
+        var constraint = NSLayoutConstraint(item: blueView, attribute: .Width, relatedBy: .Equal, toItem: view, attribute: .Height, multiplier: 1, constant: 0.5)
+        view.addConstraint(constraint)
+        
+        
+        
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    
+    @IBAction func buttonPressed(sender: UIButton) {
+        
+        sender.selected = !sender.selected
+        
+        if sender.selected {
+            heightCounstraint.constant = 240
+        } else {
+            heightCounstraint.constant = 360
+        }
+        
+        UIView.animateWithDuration(0.5) { () -> Void in
+            self.view.layoutIfNeeded()
+        }
     }
 
 
